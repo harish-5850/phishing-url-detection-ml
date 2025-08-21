@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check a URL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Check a URL</h2>
+        <form method="POST" action="{{ url_for('dashboard') }}">
+            <input type="text" name="url" placeholder="Enter URL (e.g., https://example.com)" required>
+            <button type="submit">Evaluate</button>
+        </form>
+        <p><a href="{{ url_for('logout') }}">Logout</a></p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="result {{ 'phishing' if category == 'error' else 'legit' }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

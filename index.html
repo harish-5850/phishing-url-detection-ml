@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Phishing URL Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Phishing URL Detection</h1>
+        <p>Identify if a URL is Phishing or Legitimate</p>
+        <div class="btn-group">
+            <a href="{{ url_for('login') }}" class="btn">Login</a>
+            <a href="{{ url_for('register') }}" class="btn">Register</a>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="result {{ 'phishing' if category == 'error' else 'legit' }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
